@@ -80,50 +80,59 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // ===== Typing Effect =====
-const typingText = document.querySelector('.typing-text');
-const texts = [
-    'Développeur Full Stack Junior',
-    'Technicien Informatique',
-    'Expert Systèmes & Réseaux',
-    'Passionné de Technologies'
-];
-let textIndex = 0;
-let charIndex = 0;
-let isDeleting = false;
+function initTypingEffect() {
+    const typingText = document.querySelector('.typing-text');
+    if (!typingText) return; // Si l'élément n'existe pas, on sort
 
-function type() {
-    const currentText = texts[textIndex];
+    const texts = [
+        'Développeur Full Stack Junior',
+        'Technicien Informatique',
+        'Expert Systèmes & Réseaux',
+        'Passionné de Technologies'
+    ];
+    let textIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
 
-    if (isDeleting) {
-        typingText.textContent = currentText.substring(0, charIndex - 1);
-        charIndex--;
-    } else {
-        typingText.textContent = currentText.substring(0, charIndex + 1);
-        charIndex++;
+    function type() {
+        const currentText = texts[textIndex];
+
+        if (isDeleting) {
+            typingText.textContent = currentText.substring(0, charIndex - 1);
+            charIndex--;
+        } else {
+            typingText.textContent = currentText.substring(0, charIndex + 1);
+            charIndex++;
+        }
+
+        let typeSpeed = 100;
+
+        if (isDeleting) {
+            typeSpeed /= 2;
+        }
+
+        if (!isDeleting && charIndex === currentText.length) {
+            typeSpeed = 2000; // Wait before deleting
+            isDeleting = true;
+        } else if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+            textIndex = (textIndex + 1) % texts.length;
+            typeSpeed = 500; // Wait before typing next text
+        }
+
+        setTimeout(type, typeSpeed);
     }
 
-    let typeSpeed = 100;
-
-    if (isDeleting) {
-        typeSpeed /= 2;
-    }
-
-    if (!isDeleting && charIndex === currentText.length) {
-        typeSpeed = 2000; // Wait before deleting
-        isDeleting = true;
-    } else if (isDeleting && charIndex === 0) {
-        isDeleting = false;
-        textIndex = (textIndex + 1) % texts.length;
-        typeSpeed = 500; // Wait before typing next text
-    }
-
-    setTimeout(type, typeSpeed);
+    // Start typing
+    setTimeout(type, 500);
 }
 
-// Start typing effect after page load
-window.addEventListener('load', () => {
-    setTimeout(type, 1000);
-});
+// Start typing effect after DOM is fully loaded
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTypingEffect);
+} else {
+    initTypingEffect();
+}
 
 // ===== Form Submission Handling =====
 const contactForm = document.querySelector('.contact-form');

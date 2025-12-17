@@ -32,6 +32,7 @@
 
 html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
 }
 
 body {
@@ -40,12 +41,14 @@ body {
     color: var(--text-color);
     background: var(--white);
     transition: background-color 0.3s ease, color 0.3s ease;
+    overflow-x: hidden;
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
+    width: 100%;
 }
 
 /* ===== Navigation ===== */
@@ -63,6 +66,8 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
 }
 
 .logo {
@@ -239,6 +244,7 @@ body {
     left: 50%;
     transform: translateX(-50%);
     animation: bounce 2s infinite;
+    z-index: 2;
 }
 
 .scroll-indicator a {
@@ -246,10 +252,13 @@ body {
     font-size: 2rem;
     opacity: 0.8;
     transition: var(--transition);
+    text-decoration: none;
+    display: block;
 }
 
 .scroll-indicator a:hover {
     opacity: 1;
+    color: var(--white);
 }
 
 @keyframes bounce {
