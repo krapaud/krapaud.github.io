@@ -85,10 +85,10 @@ function initTypingEffect() {
     if (!typingText) return; // Si l'élément n'existe pas, on sort
 
     const texts = [
-        'Développeur Full Stack Junior',
-        'Technicien Informatique',
-        'Expert Systèmes & Réseaux',
-        'Passionné de Technologies'
+        'Développeur Web et Web Mobile',
+        'Étudiant à Holberton School',
+        'En reconversion professionnelle',
+        'Passionné de programmation'
     ];
     let textIndex = 0;
     let charIndex = 0;
